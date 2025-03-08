@@ -51,12 +51,8 @@ class Annotator:
             logging.error('{}'.format(e))
             exit()
         paths = ('models/spliceai{}.h5'.format(x) for x in range(1, 6))
-        # use CPU memory for loading models, to prevent gpu memory allocation. 
-        if cpu:
-            with tf.device('CPU:0'):
-                self.models = [load_model(resource_filename(__name__, x)) for x in paths]
-        else:
-            self.models = [load_model(resource_filename(__name__, x)) for x in paths]
+    
+        self.models = [load_model(resource_filename(__name__, x)) for x in paths]
 
     def get_name_and_strand(self, chrom, pos):
 
